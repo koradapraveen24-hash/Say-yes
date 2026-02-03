@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proposal ❤️</title>
+
+    <style>
+      /* ---------------- BACKGROUND ---------------- */
+      body {
+        margin: 0;
+        height: 100vh;
+        font-family: "Poppins", sans-serif;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ffd6e7, #ffe8c7, #e0c3fc);
+      }
+
+      /* floating emojis */
+      .emoji {
+        position: absolute;
+        font-size: 22px;
+        animation: float 8s linear infinite;
+        opacity: 0.7;
+      }
+
+      @keyframes float {
+        from {
+          transform: translateY(100vh);
+        }
+        to {
+          transform: translateY(-10vh);
+        }
+      }
+
+      /* ---------------- CARD ---------------- */
+      .card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        padding: 40px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        width: 320px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 30px;
+        color: #333;
+      }
+
+      /* ---------------- BUTTONS ---------------- */
+      .btns {
+        position: relative;
+        height: 120px;
+      }
+
+      button {
+        padding: 12px 28px;
+        border-radius: 30px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      #yesBtn {
+        background: #ff4d6d;
+        color: white;
+        font-weight: bold;
+        box-shadow: 0 6px 15px rgba(255, 77, 109, 0.4);
+      }
+
+      #yesBtn:hover {
+        transform: scale(1.1);
+      }
+
+      #noBtn {
+        position: absolute;
+        left: 180px;
+        background: #999;
+        color: white;
+      }
+
+      /* second page */
+      #lovePage {
+        display: none;
+        font-size: 26px;
+        color: #ff2e63;
+        animation: pop 0.6s ease;
+      }
+
+      @keyframes pop {
+        from {
+          transform: scale(0);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- emojis container -->
+    <div id="emojis"></div>
+
+    <!-- MAIN CARD -->
+    <div class="card" id="mainPage">
+      <h1>Will you be mine forever? ❤️</h1>
+
+      <div class="btns">
+        <button id="yesBtn">YES 😍</button>
+        <button id="noBtn">NO 🙈</button>
+      </div>
+    </div>
+
+    <!-- LOVE PAGE -->
+    <div class="card" id="lovePage">
+      <h1>Yayyy! Me too ❤️<br />Let's be happy forever 🥰✨</h1>
+    </div>
+
+    <script>
+      /* ---------------- YES BUTTON ---------------- */
+      const yesBtn = document.getElementById("yesBtn");
+      const mainPage = document.getElementById("mainPage");
+      const lovePage = document.getElementById("lovePage");
+
+      yesBtn.onclick = () => {
+        mainPage.style.display = "none";
+        lovePage.style.display = "block";
+      };
+
+      /* ---------------- NO BUTTON ESCAPE (FIXED VERSION) ---------------- */
+      const noBtn = document.getElementById("noBtn");
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = "180px";
+      noBtn.style.top = "60px";
+
+      const step = 80; // how far it jumps each time
+
+      noBtn.addEventListener("mouseenter", () => {
+        let x = parseInt(noBtn.style.left);
+        let y = parseInt(noBtn.style.top);
+
+        const dir = Math.floor(Math.random() * 4);
+
+        if (dir === 0) y -= step; // up
+        if (dir === 1) y += step; // down
+        if (dir === 2) x -= step; // left
+        if (dir === 3) x += step; // right
+
+        // keep inside screen
+        x = Math.max(0, Math.min(window.innerWidth - 100, x));
+        y = Math.max(0, Math.min(window.innerHeight - 50, y));
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+      });
+    </script>
+  </body>
+</html>
